@@ -5,12 +5,15 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    //public Rigidbody2D rigidbody;
 
     public float speed;
     public float timeToAcceleration;
     public float startTimeAcceleration;
     public float factorDecelerate;
     public float factorChangeDirection;
+
+    public float jumpForce;
 
     private float currentTimeToAcceleration = 0;
 
@@ -30,9 +33,10 @@ public class PlayerController : MonoBehaviour
       //  currentTimeToAcceleration = -startTimeAcceleration;
     }
 
-    void OnMoveJump(InputValue value)
+    void OnJump(InputValue value)
     {
-
+        Debug.Log("je saute");
+        gameObject.GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * jumpForce);
     }
 
 
@@ -47,8 +51,10 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 position = gameObject.transform.position;
 
+        //When player move to right
         if (moveToRight)
         {
+            //If the player move to left
             if(currentTimeToAcceleration < 0)
             {
                 currentTimeToAcceleration += factorChangeDirection * Time.deltaTime;
@@ -56,14 +62,18 @@ public class PlayerController : MonoBehaviour
                     currentTimeToAcceleration = startTimeAcceleration;
             }
 
+            //Add Acceleration
             currentTimeToAcceleration += Time.deltaTime;
 
+            //Clamp Acceleration
             if (currentTimeToAcceleration > timeToAcceleration)
                 currentTimeToAcceleration = timeToAcceleration;
         }
 
+        //When player move to left
         if (moveToLeft)
         {
+            //if the player move to right
             if (currentTimeToAcceleration > 0)
             {
                 currentTimeToAcceleration -= factorChangeDirection * Time.deltaTime;
@@ -71,27 +81,31 @@ public class PlayerController : MonoBehaviour
                     currentTimeToAcceleration = (-1)*startTimeAcceleration;
             }
 
+            //add acceleration
             currentTimeToAcceleration -= Time.deltaTime;
 
+            //clamp acceleration
             if (currentTimeToAcceleration < (-1)*timeToAcceleration)
                 currentTimeToAcceleration = -timeToAcceleration;
         }
 
+        //if no movement or both direction
         if(!(moveToLeft ^ moveToRight))
         {
+            //if player move to right
             if(currentTimeToAcceleration > 0)
             {
                 currentTimeToAcceleration -= factorDecelerate * Time.deltaTime;
                 if (currentTimeToAcceleration < 0)
                     currentTimeToAcceleration = 0;
             }
+            //if player move to left
             if(currentTimeToAcceleration < 0)
             {
                 currentTimeToAcceleration += factorDecelerate * Time.deltaTime;
                 if (currentTimeToAcceleration > 0)
                     currentTimeToAcceleration = 0;
             }
-            
         }
 
         position.x += speed * Time.deltaTime * (currentTimeToAcceleration / timeToAcceleration);
