@@ -5,7 +5,9 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    //public Rigidbody2D rigidbody;
+    public BoxCollider boxCollider;
+
+    public LayerMask collisionMask;
 
     public float speed;
     public float timeToAcceleration;
@@ -33,10 +35,38 @@ public class PlayerController : MonoBehaviour
       //  currentTimeToAcceleration = -startTimeAcceleration;
     }
 
+    bool Grounded()
+    {
+        Ray ray;
+        RaycastHit hit;
+
+        Vector2 size = boxCollider.size;
+        Vector2 center = boxCollider.center;
+
+        for (int i = 0; i < 3; i++)
+        {
+            float x = (gameObject.transform.position.x + center.x - size.x / 2.0f) + size.x / 2.0f * i; //left, center and then rightmost point of collider
+            float y = (gameObject.transform.position.y + center.y + size.y / 2.0f * (-1)) + 0.5f; //bottom of collider
+
+            ray = new Ray(new Vector2(x, y), new Vector2(0, -1));
+
+            Debug.DrawRay(ray.origin, ray.direction,Color.red,5.0f);
+
+            if (Physics.Raycast(ray, out hit, 1.0f, collisionMask))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     void OnJump(InputValue value)
     {
-        Debug.Log("je saute");
-        gameObject.GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * jumpForce);
+        if(Grounded())
+        {
+            gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.up * jumpForce);
+        }
     }
 
 
@@ -55,10 +85,10 @@ public class PlayerController : MonoBehaviour
         if (moveToRight)
         {
             //If the player move to left
-            if(currentTimeToAcceleration < 0)
+            if(currentTimeToAcceleration <= 0)
             {
                 currentTimeToAcceleration += factorChangeDirection * Time.deltaTime;
-                if (currentTimeToAcceleration > startTimeAcceleration)
+                if (currentTimeToAcceleration < startTimeAcceleration)
                     currentTimeToAcceleration = startTimeAcceleration;
             }
 
@@ -77,7 +107,7 @@ public class PlayerController : MonoBehaviour
             if (currentTimeToAcceleration > 0)
             {
                 currentTimeToAcceleration -= factorChangeDirection * Time.deltaTime;
-                if (currentTimeToAcceleration < (-1)*startTimeAcceleration)
+                if (currentTimeToAcceleration > (-1)*startTimeAcceleration)
                     currentTimeToAcceleration = (-1)*startTimeAcceleration;
             }
 
@@ -110,7 +140,12 @@ public class PlayerController : MonoBehaviour
 
         position.x += speed * Time.deltaTime * (currentTimeToAcceleration / timeToAcceleration);
 
-        gameObject.transform.position = position;
+        // gameObject.transform.position = position;
+
+        //gameObject.GetComponent<Rigidbody>().AddForce( new Vector3( speed * Time.deltaTime * (currentTimeToAcceleration / timeToAcceleration) , 0, 0) );
+
+        Debug.Log((currentTimeToAcceleration / timeToAcceleration));
+        gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(speed * (currentTimeToAcceleration / timeToAcceleration), Physics.gravity.y*3, 0));
 
     }
 }
