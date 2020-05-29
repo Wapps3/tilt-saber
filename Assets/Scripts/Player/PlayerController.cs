@@ -17,6 +17,9 @@ public class PlayerController : MonoBehaviour
 
     public float jumpForce;
 
+    public float maxWallJump;
+    private float leftWalljump;
+
     private float currentTimeToAcceleration = 0;
 
     private bool moveToRight = false;
@@ -61,11 +64,62 @@ public class PlayerController : MonoBehaviour
         return false;
     }
 
+    bool Walled()
+    {
+        Ray ray;
+        RaycastHit hit;
+
+        Vector2 size = boxCollider.size;
+        Vector2 center = boxCollider.center;
+
+        for (int i = 0; i < 3; i++)
+        {
+            float x = gameObject.transform.position.x + center.x - (size.x / 2.0f); //bottom left collider
+            float y = gameObject.transform.position.y + center.y - (size.y / 2.0f) + (size.y / 2.0f) * i; //bottom middle top collider
+
+            ray = new Ray(new Vector2(x, y), new Vector2(-1, 0));
+
+            Debug.DrawRay(ray.origin, ray.direction, Color.yellow, 5.0f);
+
+            if (Physics.Raycast(ray, out hit, 1.0f, collisionMask))
+            {
+                return true;
+            }
+
+            x = gameObject.transform.position.x + center.x + (size.x / 2.0f); //bottom left collider
+            y = gameObject.transform.position.y + center.y - (size.y / 2.0f) + (size.y / 2.0f) * i; //bottom middle top collider
+
+            ray = new Ray(new Vector2(x, y), new Vector2(1, 0));
+
+            Debug.DrawRay(ray.origin, ray.direction, Color.yellow, 5.0f);
+
+            if (Physics.Raycast(ray, out hit, 1.0f, collisionMask))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     void OnJump(InputValue value)
     {
         if(Grounded())
         {
-            gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.up * jumpForce);
+            leftWalljump = maxWallJump;
+
+            gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.up * jumpForce,ForceMode.VelocityChange);
+        }
+        else
+        {
+            if(leftWalljump > 0)
+            {
+                if( Walled())
+                {
+                    leftWalljump--;
+                    gameObject.GetComponent<Rigidbody>().AddForce(gameObject.transform.up * jumpForce,ForceMode.VelocityChange);
+                }
+            }
         }
     }
 
@@ -73,14 +127,12 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        leftWalljump = maxWallJump;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Vector3 position = gameObject.transform.position;
-
         //When player move to right
         if (moveToRight)
         {
@@ -137,15 +189,10 @@ public class PlayerController : MonoBehaviour
                     currentTimeToAcceleration = 0;
             }
         }
-
-        position.x += speed * Time.deltaTime * (currentTimeToAcceleration / timeToAcceleration);
-
-        // gameObject.transform.position = position;
-
+        
         //gameObject.GetComponent<Rigidbody>().AddForce( new Vector3( speed * Time.deltaTime * (currentTimeToAcceleration / timeToAcceleration) , 0, 0) );
 
-        Debug.Log((currentTimeToAcceleration / timeToAcceleration));
-        gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(speed * (currentTimeToAcceleration / timeToAcceleration), Physics.gravity.y*3, 0));
+        gameObject.GetComponent<Rigidbody>().AddForce(new Vector3(speed * (currentTimeToAcceleration / timeToAcceleration), 0, 0));
 
     }
 }
