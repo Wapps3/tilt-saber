@@ -10,6 +10,8 @@ public class Controller2D : MonoBehaviour
 
     public LayerMask collisionMask;
 
+    public float scaleGravity;
+
     public float speed;
     public float timeToAcceleration;
     public float startTimeAcceleration;
@@ -65,10 +67,10 @@ public class Controller2D : MonoBehaviour
         return false;
     }
 
-    bool Walled()
+    bool WalledLeft()
     {
         Ray ray;
-        RaycastHit hit;
+        RaycastHit2D hit;
 
         Vector2 size = boxCollider.size;
         Vector2 center = boxCollider.offset;
@@ -82,22 +84,43 @@ public class Controller2D : MonoBehaviour
 
             Debug.DrawRay(ray.origin, ray.direction, Color.yellow, 5.0f);
 
-            if (Physics2D.Raycast(ray.origin, ray.direction, 1.0f, collisionMask))
+            if (hit = Physics2D.Raycast(ray.origin, ray.direction, 1.0f, collisionMask))
             {
                 return true;
             }
+        }
+            return false;
+    }
 
-            x = gameObject.transform.position.x + center.x + (size.x / 2.0f); //bottom left collider
-            y = gameObject.transform.position.y + center.y - (size.y / 2.0f) + (size.y / 2.0f) * i; //bottom middle top collider
+    bool WalledRight()
+    {
+        Ray ray;
+        RaycastHit2D hit;
+
+        Vector2 size = boxCollider.size;
+        Vector2 center = boxCollider.offset;
+
+        for (int i = 0; i < 3; i++)
+        {
+            float x = gameObject.transform.position.x + center.x + (size.x / 2.0f); //bottom left collider
+            float y = gameObject.transform.position.y + center.y - (size.y / 2.0f) + (size.y / 2.0f) * i; //bottom middle top collider
 
             ray = new Ray(new Vector2(x, y), new Vector2(1, 0));
 
             Debug.DrawRay(ray.origin, ray.direction, Color.yellow, 5.0f);
 
-            if (Physics2D.Raycast(ray.origin, ray.direction, 1.0f, collisionMask) )
+            if (hit = Physics2D.Raycast(ray.origin, ray.direction, 1.0f, collisionMask))
             {
                 return true;
             }
+        }
+            return false;
+    }
+    bool Walled()
+    {
+        if(WalledLeft() || WalledRight() )
+        {
+            return true;
         }
 
         return false;
@@ -128,7 +151,7 @@ public class Controller2D : MonoBehaviour
     void Jump()
     {
        
-        gameObject.GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * jumpForce, ForceMode2D.Impulse);
+        gameObject.GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * jumpForce, ForceMode2D.Force);
     }
 
 
@@ -162,7 +185,7 @@ public class Controller2D : MonoBehaviour
         if (moveToLeft)
         {
             //if the player move to right
-            if (currentTimeToAcceleration > 0)
+            if (currentTimeToAcceleration >= 0)
             {
                 currentTimeToAcceleration -= factorChangeDirection * Time.deltaTime;
                 if (currentTimeToAcceleration > (-1) * startTimeAcceleration)
@@ -197,7 +220,20 @@ public class Controller2D : MonoBehaviour
         }
 
         //gameObject.GetComponent<Rigidbody2D>().AddForce( new Vector3( speed * Time.deltaTime * (currentTimeToAcceleration / timeToAcceleration) , 0, 0) );
-        gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(speed * (currentTimeToAcceleration / timeToAcceleration), 0));
+        Debug.Log((currentTimeToAcceleration / timeToAcceleration));
+        gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(speed * (currentTimeToAcceleration / timeToAcceleration), 0), ForceMode2D.Force);
 
+        
+        if( /*!Grounded()*/ true )
+        {
+            if( !(WalledRight() & moveToRight) )
+            {
+                if ( !(WalledLeft() & moveToLeft) )
+                {
+                    gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, (-1) * scaleGravity), ForceMode2D.Force);
+                }
+            }
+        }
+        
     }
 }
