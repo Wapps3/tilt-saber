@@ -597,6 +597,28 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1763867414 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8970924711080685793, guid: 020e1e3a66dd70b41837537df39b2606,
+    type: 3}
+  m_PrefabInstance: {fileID: 8970924710974610719}
+  m_PrefabAsset: {fileID: 0}
+--- !u!58 &1763867415
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1763867414}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &1800675876
 GameObject:
   m_ObjectHideFlags: 0
@@ -7677,5 +7699,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.6963916
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1763867419, guid: 020e1e3a66dd70b41837537df39b2606, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 020e1e3a66dd70b41837537df39b2606, type: 3}
