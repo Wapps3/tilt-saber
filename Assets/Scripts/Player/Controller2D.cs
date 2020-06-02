@@ -42,7 +42,7 @@ public class Controller2D : MonoBehaviour
     bool Grounded()
     {
         Ray ray;
-        RaycastHit hit;
+        RaycastHit2D hit;
 
         Vector2 size = boxCollider.size;
         Vector2 center = boxCollider.offset;
@@ -56,7 +56,7 @@ public class Controller2D : MonoBehaviour
 
             Debug.DrawRay(ray.origin, ray.direction, Color.red, 5.0f);
 
-            if (Physics.Raycast(ray, out hit, 1.0f, collisionMask))
+            if (hit = Physics2D.Raycast(ray.origin, ray.direction, 1.0f, collisionMask) )
             {
                 return true;
             }
@@ -82,7 +82,7 @@ public class Controller2D : MonoBehaviour
 
             Debug.DrawRay(ray.origin, ray.direction, Color.yellow, 5.0f);
 
-            if (Physics.Raycast(ray, out hit, 1.0f, collisionMask))
+            if (Physics2D.Raycast(ray.origin, ray.direction, 1.0f, collisionMask))
             {
                 return true;
             }
@@ -94,7 +94,7 @@ public class Controller2D : MonoBehaviour
 
             Debug.DrawRay(ray.origin, ray.direction, Color.yellow, 5.0f);
 
-            if (Physics.Raycast(ray, out hit, 1.0f, collisionMask))
+            if (Physics2D.Raycast(ray.origin, ray.direction, 1.0f, collisionMask) )
             {
                 return true;
             }
@@ -127,6 +127,7 @@ public class Controller2D : MonoBehaviour
 
     void Jump()
     {
+       
         gameObject.GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * jumpForce, ForceMode2D.Impulse);
     }
 

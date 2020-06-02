@@ -207,9 +207,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1886715525257469428}
   - component: {fileID: 1886715525257469431}
-  - component: {fileID: 1886715525257469430}
-  - component: {fileID: 35419494070908276}
-  - component: {fileID: 35419494070908275}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -264,55 +261,3 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &1886715525257469430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1886715525257469433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 000d1acea2c17c148b12b1dffe9d6dbd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boxCollider: {fileID: 35419494070908276}
-  collisionMask:
-    serializedVersion: 2
-    m_Bits: 1
-  speed: 20
-  timeToAcceleration: 1
-  startTimeAcceleration: 1
-  factorDecelerate: 2
-  factorChangeDirection: 25
-  jumpForce: 20
-  maxWallJump: 10
---- !u!65 &35419494070908276
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1886715525257469433}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!54 &35419494070908275
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1886715525257469433}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 120
-  m_CollisionDetection: 0
