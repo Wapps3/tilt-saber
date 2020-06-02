@@ -171,6 +171,9 @@ public class Controller2D : MonoBehaviour
                 currentTimeToAcceleration += factorChangeDirection * Time.deltaTime;
                 if (currentTimeToAcceleration < startTimeAcceleration)
                     currentTimeToAcceleration = startTimeAcceleration;
+
+                Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+                rb.velocity = new Vector3(0, rb.velocity.y);
             }
 
             //Add Acceleration
@@ -190,6 +193,9 @@ public class Controller2D : MonoBehaviour
                 currentTimeToAcceleration -= factorChangeDirection * Time.deltaTime;
                 if (currentTimeToAcceleration > (-1) * startTimeAcceleration)
                     currentTimeToAcceleration = (-1) * startTimeAcceleration;
+
+                Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+                rb.velocity = new Vector3(0,rb.velocity.y);
             }
 
             //add acceleration
