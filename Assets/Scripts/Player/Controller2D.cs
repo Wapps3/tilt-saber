@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent (typeof(Rigidbody2D))]
 public class Controller2D : MonoBehaviour
 {
-    public BoxCollider2D boxCollider;
+    public CapsuleCollider2D collider;
 
     public LayerMask collisionMask;
 
@@ -46,8 +46,8 @@ public class Controller2D : MonoBehaviour
         Ray ray;
         RaycastHit2D hit;
 
-        Vector2 size = boxCollider.size;
-        Vector2 center = boxCollider.offset;
+        Vector2 size = collider.size;
+        Vector2 center = collider.offset;
 
         for (int i = 0; i < 3; i++)
         {
@@ -72,8 +72,8 @@ public class Controller2D : MonoBehaviour
         Ray ray;
         RaycastHit2D hit;
 
-        Vector2 size = boxCollider.size;
-        Vector2 center = boxCollider.offset;
+        Vector2 size = collider.size;
+        Vector2 center = collider.offset;
 
         for (int i = 0; i < 3; i++)
         {
@@ -97,8 +97,8 @@ public class Controller2D : MonoBehaviour
         Ray ray;
         RaycastHit2D hit;
 
-        Vector2 size = boxCollider.size;
-        Vector2 center = boxCollider.offset;
+        Vector2 size = collider.size;
+        Vector2 center = collider.offset;
 
         for (int i = 0; i < 3; i++)
         {
