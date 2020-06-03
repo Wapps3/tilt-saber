@@ -1156,6 +1156,10 @@ PrefabInstance:
       propertyPath: animator
       value: 
       objectReference: {fileID: 1840847556}
+    - target: {fileID: 1049308945, guid: 480982d60ec8c864ab1182a7d377ba8c, type: 3}
+      propertyPath: timeBetweenAttack
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1049308946, guid: 480982d60ec8c864ab1182a7d377ba8c, type: 3}
       propertyPath: m_Offset.y
       value: 1.0708635
