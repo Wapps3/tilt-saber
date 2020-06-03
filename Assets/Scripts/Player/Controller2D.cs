@@ -28,6 +28,25 @@ public class Controller2D : MonoBehaviour
     private bool moveToRight = false;
     private bool moveToLeft = false;
 
+    public float timeBetweenFire;
+    private float timeBeforeFire;
+
+    public Animator animator;
+
+    void OnFire(InputValue value)
+    {
+        if (timeBeforeFire <= 0)
+        {
+            Debug.Log("fire");
+
+            timeBeforeFire = timeBetweenFire;
+        }
+    }
+
+    void OnAttack(InputValue value)
+    {
+        Debug.Log("attack");
+    }
 
     void OnMoveRight(InputValue value)
     {
@@ -158,10 +177,14 @@ public class Controller2D : MonoBehaviour
     void Start()
     {
         leftWalljump = maxWallJump;
+        timeBeforeFire = 0;
     }
 
     void Update()
     {
+        if (timeBeforeFire > 0)
+            timeBeforeFire -= Time.deltaTime;
+
         //When player move to right
         if (moveToRight)
         {
