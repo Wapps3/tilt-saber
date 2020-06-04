@@ -40,8 +40,6 @@ public class Controller2D : MonoBehaviour
     {
         if (timeBeforeFire <= 0)
         {
-            Debug.Log("fire");
-
             animator.SetTrigger("Fire");
             timeBeforeFire = timeBetweenFire;
         }
@@ -51,9 +49,6 @@ public class Controller2D : MonoBehaviour
     {
         if (timeBeforeAttack <= 0)
         {
-            Debug.Log("attack");
-            Debug.Log(timeBeforeAttack);
-
             animator.SetTrigger("Attack");
             timeBeforeAttack = timeBetweenAttack;
             Debug.Log(timeBeforeAttack);
@@ -63,12 +58,14 @@ public class Controller2D : MonoBehaviour
 
     void OnMoveRight(InputValue value)
     {
+        animator.transform.localScale = new Vector3(1, 1, 1);
         moveToRight = !moveToRight;
         // currentTimeToAcceleration = startTimeAcceleration;
     }
 
     void OnMoveLeft(InputValue value)
     {
+        animator.transform.localScale = new Vector3(-1, 1, 1);
         moveToLeft = !moveToLeft;
         //  currentTimeToAcceleration = -startTimeAcceleration;
     }
