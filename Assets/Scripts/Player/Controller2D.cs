@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 [RequireComponent (typeof(Rigidbody2D))]
 public class Controller2D : MonoBehaviour
 {
-    public BoxCollider2D boxCollider;
+    public CapsuleCollider2D collider;
 
     public LayerMask collisionMask;
 
@@ -28,6 +28,38 @@ public class Controller2D : MonoBehaviour
     private bool moveToRight = false;
     private bool moveToLeft = false;
 
+    public float timeBetweenFire;
+    private float timeBeforeFire;
+
+    public float timeBetweenAttack;
+    private float timeBeforeAttack;
+
+    public Animator animator;
+
+    void OnFire(InputValue value)
+    {
+        if (timeBeforeFire <= 0)
+        {
+            Debug.Log("fire");
+
+            animator.SetTrigger("Fire");
+            timeBeforeFire = timeBetweenFire;
+        }
+    }
+
+    void OnAttack(InputValue value)
+    {
+        if (timeBeforeAttack <= 0)
+        {
+            Debug.Log("attack");
+            Debug.Log(timeBeforeAttack);
+
+            animator.SetTrigger("Attack");
+            timeBeforeAttack = timeBetweenAttack;
+            Debug.Log(timeBeforeAttack);
+
+        }
+    }
 
     void OnMoveRight(InputValue value)
     {
@@ -46,8 +78,8 @@ public class Controller2D : MonoBehaviour
         Ray ray;
         RaycastHit2D hit;
 
-        Vector2 size = boxCollider.size;
-        Vector2 center = boxCollider.offset;
+        Vector2 size = collider.size;
+        Vector2 center = collider.offset;
 
         for (int i = 0; i < 3; i++)
         {
@@ -72,8 +104,8 @@ public class Controller2D : MonoBehaviour
         Ray ray;
         RaycastHit2D hit;
 
-        Vector2 size = boxCollider.size;
-        Vector2 center = boxCollider.offset;
+        Vector2 size = collider.size;
+        Vector2 center = collider.offset;
 
         for (int i = 0; i < 3; i++)
         {
@@ -97,8 +129,8 @@ public class Controller2D : MonoBehaviour
         Ray ray;
         RaycastHit2D hit;
 
-        Vector2 size = boxCollider.size;
-        Vector2 center = boxCollider.offset;
+        Vector2 size = collider.size;
+        Vector2 center = collider.offset;
 
         for (int i = 0; i < 3; i++)
         {
@@ -158,10 +190,18 @@ public class Controller2D : MonoBehaviour
     void Start()
     {
         leftWalljump = maxWallJump;
+        timeBeforeFire = 0;
+        timeBeforeAttack = 0;
     }
 
     void Update()
     {
+        if (timeBeforeFire > 0)
+            timeBeforeFire -= Time.deltaTime;
+
+        if (timeBeforeAttack > 0)
+            timeBeforeAttack -= Time.deltaTime;
+
         //When player move to right
         if (moveToRight)
         {
@@ -171,6 +211,9 @@ public class Controller2D : MonoBehaviour
                 currentTimeToAcceleration += factorChangeDirection * Time.deltaTime;
                 if (currentTimeToAcceleration < startTimeAcceleration)
                     currentTimeToAcceleration = startTimeAcceleration;
+
+                Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+                rb.velocity = new Vector3(0, rb.velocity.y);
             }
 
             //Add Acceleration
@@ -190,6 +233,9 @@ public class Controller2D : MonoBehaviour
                 currentTimeToAcceleration -= factorChangeDirection * Time.deltaTime;
                 if (currentTimeToAcceleration > (-1) * startTimeAcceleration)
                     currentTimeToAcceleration = (-1) * startTimeAcceleration;
+
+                Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+                rb.velocity = new Vector3(0,rb.velocity.y);
             }
 
             //add acceleration
