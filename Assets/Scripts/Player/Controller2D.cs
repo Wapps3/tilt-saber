@@ -58,14 +58,12 @@ public class Controller2D : MonoBehaviour
 
     void OnMoveRight(InputValue value)
     {
-        animator.transform.localScale = new Vector3(1, 1, 1);
         moveToRight = !moveToRight;
         // currentTimeToAcceleration = startTimeAcceleration;
     }
 
     void OnMoveLeft(InputValue value)
     {
-        animator.transform.localScale = new Vector3(-1, 1, 1);
         moveToLeft = !moveToLeft;
         //  currentTimeToAcceleration = -startTimeAcceleration;
     }
@@ -113,7 +111,7 @@ public class Controller2D : MonoBehaviour
 
             Debug.DrawRay(ray.origin, ray.direction, Color.yellow, 5.0f);
 
-            if (hit = Physics2D.Raycast(ray.origin, ray.direction, 1.0f, collisionMask))
+            if (hit = Physics2D.Raycast(ray.origin, ray.direction, 0.5f, collisionMask))
             {
                 return true;
             }
@@ -138,7 +136,7 @@ public class Controller2D : MonoBehaviour
 
             Debug.DrawRay(ray.origin, ray.direction, Color.yellow, 5.0f);
 
-            if (hit = Physics2D.Raycast(ray.origin, ray.direction, 1.0f, collisionMask))
+            if (hit = Physics2D.Raycast(ray.origin, ray.direction, 0.5f, collisionMask))
             {
                 return true;
             }
@@ -264,13 +262,24 @@ public class Controller2D : MonoBehaviour
         }
 
         //gameObject.GetComponent<Rigidbody2D>().AddForce( new Vector3( speed * Time.deltaTime * (currentTimeToAcceleration / timeToAcceleration) , 0, 0) );
-        Debug.Log((currentTimeToAcceleration / timeToAcceleration));
+        
+        if((currentTimeToAcceleration / timeToAcceleration) < 0)
+        {
+            animator.transform.localScale = new Vector3(-1, 1, 1);
+        }
+        else
+        {
+            animator.transform.localScale = new Vector3(1, 1, 1);
+        }
+
+        animator.SetFloat("Acceleration", Mathf.Abs( (currentTimeToAcceleration / timeToAcceleration) ) );
         gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(speed * (currentTimeToAcceleration / timeToAcceleration), 0), ForceMode2D.Force);
 
         bool walledRight = WalledRight();
         bool walledLeft = WalledLeft();
+        bool grounded = Grounded();
 
-        if(walledLeft || walledRight)
+        if ( (walledLeft || walledRight) &  !grounded)
         {
             animator.SetBool("Walled", true);
         }
