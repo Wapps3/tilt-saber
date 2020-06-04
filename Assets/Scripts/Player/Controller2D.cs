@@ -179,7 +179,7 @@ public class Controller2D : MonoBehaviour
 
     void Jump()
     {
-       
+        animator.SetTrigger("Jump");
         gameObject.GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * jumpForce, ForceMode2D.Force);
     }
 
@@ -189,6 +189,7 @@ public class Controller2D : MonoBehaviour
         leftWalljump = maxWallJump;
         timeBeforeFire = 0;
         timeBeforeAttack = 0;
+        //animator.transform.localScale = new Vector3(1, 1, 1);
     }
 
     void Update()
@@ -266,12 +267,23 @@ public class Controller2D : MonoBehaviour
         Debug.Log((currentTimeToAcceleration / timeToAcceleration));
         gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(speed * (currentTimeToAcceleration / timeToAcceleration), 0), ForceMode2D.Force);
 
-        
+        bool walledRight = WalledRight();
+        bool walledLeft = WalledLeft();
+
+        if(walledLeft || walledRight)
+        {
+            animator.SetBool("Walled", true);
+        }
+        else
+        {
+            animator.SetBool("Walled", false);
+        }
+
         if( /*!Grounded()*/ true )
         {
-            if( !(WalledRight() & moveToRight) )
+            if( !(walledRight & moveToRight) )
             {
-                if ( !(WalledLeft() & moveToLeft) )
+                if ( !(walledLeft & moveToLeft) )
                 {
                     gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, (-1) * scaleGravity), ForceMode2D.Force);
                 }
