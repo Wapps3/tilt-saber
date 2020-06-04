@@ -229,6 +229,7 @@ MonoBehaviour:
   maxWallJump: 10
   timeBetweenFire: 2
   timeBetweenAttack: 0.4
+  fastFallForce: 100
   animator: {fileID: 4163803616976079262}
 --- !u!70 &1049308946
 CapsuleCollider2D:
