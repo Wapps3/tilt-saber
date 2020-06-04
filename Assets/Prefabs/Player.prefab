@@ -59,8 +59,8 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 0
-  orthographic size: 5
+  orthographic: 1
+  orthographic size: 15
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -126,8 +126,8 @@ GameObject:
   - component: {fileID: 1886715525257469428}
   - component: {fileID: 1886715525257469431}
   - component: {fileID: 1049308947}
-  - component: {fileID: 1049308946}
   - component: {fileID: 1049308945}
+  - component: {fileID: 1049308946}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -203,32 +203,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!61 &1049308946
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1886715525257469433}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
 --- !u!114 &1049308945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,7 +215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca16259fa2a98b41bed3cddef8e2e30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boxCollider: {fileID: 1049308946}
+  collider: {fileID: 1049308946}
   collisionMask:
     serializedVersion: 2
     m_Bits: 1
@@ -253,6 +227,25 @@ MonoBehaviour:
   factorChangeDirection: 0
   jumpForce: 500
   maxWallJump: 10
+  timeBetweenFire: 2
+  timeBetweenAttack: 0.4
+  animator: {fileID: 4163803616976079262}
+--- !u!70 &1049308946
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1886715525257469433}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0740639, y: 0.8620789}
+  m_Size: {x: 1.6715581, y: 3.2898974}
+  m_Direction: 0
 --- !u!1001 &5023744676531042686
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -325,6 +318,12 @@ PrefabInstance:
 --- !u!4 &4163803616976079457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8970924711080686367, guid: 020e1e3a66dd70b41837537df39b2606,
+    type: 3}
+  m_PrefabInstance: {fileID: 5023744676531042686}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &4163803616976079262 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 8970924711080685792, guid: 020e1e3a66dd70b41837537df39b2606,
     type: 3}
   m_PrefabInstance: {fileID: 5023744676531042686}
   m_PrefabAsset: {fileID: 0}
