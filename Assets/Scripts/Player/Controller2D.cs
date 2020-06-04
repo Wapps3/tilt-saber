@@ -34,6 +34,9 @@ public class Controller2D : MonoBehaviour
     public float timeBetweenAttack;
     private float timeBeforeAttack;
 
+    public float fastFallForce;
+    private bool fastFall;
+
     public Animator animator;
 
     void OnFire(InputValue value)
@@ -66,6 +69,11 @@ public class Controller2D : MonoBehaviour
     {
         moveToLeft = !moveToLeft;
         //  currentTimeToAcceleration = -startTimeAcceleration;
+    }
+
+    void OnFastFall(InputValue value)
+    {
+        fastFall = true;
     }
 
     bool Grounded()
@@ -187,6 +195,7 @@ public class Controller2D : MonoBehaviour
         leftWalljump = maxWallJump;
         timeBeforeFire = 0;
         timeBeforeAttack = 0;
+        fastFall = false;
         //animator.transform.localScale = new Vector3(1, 1, 1);
     }
 
@@ -290,6 +299,16 @@ public class Controller2D : MonoBehaviour
         else
         {
             animator.SetBool("Walled", false);
+        }
+
+        if(grounded)
+        {
+            fastFall = false;
+        }
+        
+        if(fastFall)
+        {
+            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, fastFallForce * (-1) ) );
         }
 
         if( /*!Grounded()*/ true )
