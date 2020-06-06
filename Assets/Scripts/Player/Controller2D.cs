@@ -6,7 +6,9 @@ using UnityEngine.InputSystem;
 [RequireComponent (typeof(Rigidbody2D))]
 public class Controller2D : MonoBehaviour
 {
-    public CapsuleCollider2D collider;
+    public CapsuleCollider2D colliderCustom;
+
+    public Rigidbody2D rigidBody;
 
     public LayerMask collisionMask;
 
@@ -39,10 +41,23 @@ public class Controller2D : MonoBehaviour
 
     public Animator animator;
 
+    public GameObject bulletPrefab;
+    public float bulletForce;
+    public GameObject gun;
+    public float recoilForce;
+
     void OnFire(InputValue value)
     {
         if (timeBeforeFire <= 0)
         {
+            GameObject bullet = Instantiate(bulletPrefab, gun.transform.position + new Vector3(gameObject.transform.localScale.x,0,0) , new Quaternion() );
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            rb.AddForce(new Vector2(gameObject.transform.localScale.x * bulletForce, 0), ForceMode2D.Impulse);
+
+            //Add recoil after a shoot
+            rigidBody.velocity = new Vector2(0, 0);
+            rigidBody.AddForce(new Vector2(gameObject.transform.localScale.x * (-1) * recoilForce, 0), ForceMode2D.Force );
+
             animator.SetTrigger("Fire");
             timeBeforeFire = timeBetweenFire;
         }
@@ -52,7 +67,8 @@ public class Controller2D : MonoBehaviour
     {
         if (timeBeforeAttack <= 0)
         {
-            animator.SetTrigger("Attack");
+            Debug.Log("attack");
+
             timeBeforeAttack = timeBetweenAttack;
             Debug.Log(timeBeforeAttack);
 
@@ -81,8 +97,8 @@ public class Controller2D : MonoBehaviour
         Ray ray;
         RaycastHit2D hit;
 
-        Vector2 size = collider.size;
-        Vector2 center = collider.offset;
+        Vector2 size = colliderCustom.size;
+        Vector2 center = colliderCustom.offset;
 
         for (int i = 0; i < 3; i++)
         {
@@ -107,8 +123,8 @@ public class Controller2D : MonoBehaviour
         Ray ray;
         RaycastHit2D hit;
 
-        Vector2 size = collider.size;
-        Vector2 center = collider.offset;
+        Vector2 size = colliderCustom.size;
+        Vector2 center = colliderCustom.offset;
 
         for (int i = 0; i < 3; i++)
         {
@@ -132,8 +148,8 @@ public class Controller2D : MonoBehaviour
         Ray ray;
         RaycastHit2D hit;
 
-        Vector2 size = collider.size;
-        Vector2 center = collider.offset;
+        Vector2 size = colliderCustom.size;
+        Vector2 center = colliderCustom.offset;
 
         for (int i = 0; i < 3; i++)
         {
@@ -186,9 +202,13 @@ public class Controller2D : MonoBehaviour
     void Jump()
     {
         animator.SetTrigger("Jump");
-        gameObject.GetComponent<Rigidbody2D>().AddForce(gameObject.transform.up * jumpForce, ForceMode2D.Force);
+        rigidBody.AddForce(gameObject.transform.up * jumpForce, ForceMode2D.Force);
     }
 
+    public void Hit()
+    {
+        Debug.Log("arg je meurs");
+    }
 
     void Start()
     {
@@ -217,8 +237,7 @@ public class Controller2D : MonoBehaviour
                 if (currentTimeToAcceleration < startTimeAcceleration)
                     currentTimeToAcceleration = startTimeAcceleration;
 
-                Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
-                rb.velocity = new Vector3(0, rb.velocity.y);
+                rigidBody.velocity = new Vector3(0, rigidBody.velocity.y);
             }
 
             //Add Acceleration
@@ -239,8 +258,7 @@ public class Controller2D : MonoBehaviour
                 if (currentTimeToAcceleration > (-1) * startTimeAcceleration)
                     currentTimeToAcceleration = (-1) * startTimeAcceleration;
 
-                Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
-                rb.velocity = new Vector3(0,rb.velocity.y);
+                rigidBody.velocity = new Vector3(0, rigidBody.velocity.y,0);
             }
 
             //add acceleration
@@ -274,15 +292,15 @@ public class Controller2D : MonoBehaviour
         
         if((currentTimeToAcceleration / timeToAcceleration) < 0)
         {
-            animator.transform.localScale = new Vector3(-1, 1, 1);
+            gameObject.transform.localScale = new Vector3(-1, 1, 1);
         }
-        else
+        if((currentTimeToAcceleration / timeToAcceleration) > 0)
         {
-            animator.transform.localScale = new Vector3(1, 1, 1);
+            gameObject.transform.localScale = new Vector3(1, 1, 1);
         }
 
         animator.SetFloat("Acceleration", Mathf.Abs( (currentTimeToAcceleration / timeToAcceleration) ) );
-        gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(speed * (currentTimeToAcceleration / timeToAcceleration), 0), ForceMode2D.Force);
+        rigidBody.AddForce(new Vector2(speed * (currentTimeToAcceleration / timeToAcceleration), 0), ForceMode2D.Force);
 
         bool walledRight = WalledRight();
         bool walledLeft = WalledLeft();
@@ -308,7 +326,7 @@ public class Controller2D : MonoBehaviour
         
         if(fastFall)
         {
-            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, fastFallForce * (-1) ) );
+            rigidBody.AddForce(new Vector2(0, fastFallForce * (-1) ) );
         }
 
         if( /*!Grounded()*/ true )
@@ -317,7 +335,7 @@ public class Controller2D : MonoBehaviour
             {
                 if ( !(walledLeft & moveToLeft) )
                 {
-                    gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, (-1) * scaleGravity), ForceMode2D.Force);
+                    rigidBody.AddForce(new Vector2(0, (-1) * scaleGravity), ForceMode2D.Force);
                 }
             }
         }

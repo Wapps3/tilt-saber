@@ -15,8 +15,17 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 pos = gameObject.transform.position;
+        
+    }
 
-        gameObject.transform.position = new Vector3(pos.x + speed * Time.deltaTime, pos.y, pos.z);
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<Controller2D>())
+        {
+
+            collision.gameObject.GetComponent<Controller2D>().Hit();
+        }
+
+        Destroy(gameObject);
     }
 }
