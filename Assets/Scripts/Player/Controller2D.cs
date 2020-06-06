@@ -71,10 +71,9 @@ public class Controller2D : MonoBehaviour
     {
         if (timeBeforeAttack <= 0)
         {
-            Debug.Log("attack");
 
+            animator.SetTrigger("Attack");
             timeBeforeAttack = timeBetweenAttack;
-            Debug.Log(timeBeforeAttack);
 
         }
     }

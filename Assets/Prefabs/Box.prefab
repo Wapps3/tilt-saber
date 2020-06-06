@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 4335760977630212300, guid: f7d481c654294b945a2254264e27b090,
+  m_Sprite: {fileID: 6276158272747023522, guid: f7d481c654294b945a2254264e27b090,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -97,7 +97,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 0.2
+  m_Mass: 0.3
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
@@ -144,5 +144,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cc7321c16bd41749becbd4f58d8ad39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minScale: 0.8
+  minScale: 3
   maxScale: 3
