@@ -48,6 +48,8 @@ public class Controller2D : MonoBehaviour
     public GameObject gun;
     public float recoilForce;
 
+    private bool die = false;
+
     void OnFire(InputValue value)
     {
         if (timeBeforeFire <= 0)
@@ -181,6 +183,9 @@ public class Controller2D : MonoBehaviour
 
     void OnJump(InputValue value)
     {
+        if (die)
+            return;
+
         if (Grounded())
         {
             leftWalljump = maxWallJump;
@@ -210,8 +215,19 @@ public class Controller2D : MonoBehaviour
     public void Hit()
     {
         Debug.Log("arg je meurs");
+        die = true;
+        
+        StartCoroutine(DieCoroutine());
+    }
 
-        levelRef.Respawn(gameObject);
+    IEnumerator DieCoroutine()
+    {
+        animator.SetTrigger("Die");
+
+        yield return new WaitForSeconds(1);
+        
+        rigidBody.position = levelRef.RespawnPos(gameObject);
+        die = false;
     }
 
     void Start()
@@ -225,6 +241,9 @@ public class Controller2D : MonoBehaviour
 
     void Update()
     {
+        if (die)
+            return;
+
         if (timeBeforeFire > 0)
             timeBeforeFire -= Time.deltaTime;
 
