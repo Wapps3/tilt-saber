@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 [RequireComponent (typeof(Rigidbody2D))]
 public class Controller2D : MonoBehaviour
 {
+    public LevelManager levelRef;
+
     public CapsuleCollider2D colliderCustom;
 
     public Rigidbody2D rigidBody;
@@ -208,6 +210,8 @@ public class Controller2D : MonoBehaviour
     public void Hit()
     {
         Debug.Log("arg je meurs");
+
+        levelRef.Respawn(gameObject);
     }
 
     void Start()

@@ -216,7 +216,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca16259fa2a98b41bed3cddef8e2e30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collider: {fileID: 1049308946}
+  levelRef: {fileID: 0}
+  colliderCustom: {fileID: 1049308946}
+  rigidBody: {fileID: 1049308947}
   collisionMask:
     serializedVersion: 2
     m_Bits: 1
@@ -232,6 +234,11 @@ MonoBehaviour:
   timeBetweenAttack: 0.4
   fastFallForce: 100
   animator: {fileID: 4163803616976079262}
+  bulletPrefab: {fileID: 5616319116875499840, guid: 34aaf19fc96654a4baeeca9522746a00,
+    type: 3}
+  bulletForce: 50
+  gun: {fileID: 4163803616702628106}
+  recoilForce: 1000
 --- !u!70 &1049308946
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -326,6 +333,12 @@ Transform:
 --- !u!95 &4163803616976079262 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 8970924711080685792, guid: 020e1e3a66dd70b41837537df39b2606,
+    type: 3}
+  m_PrefabInstance: {fileID: 5023744676531042686}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4163803616702628106 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8970924711351974004, guid: 020e1e3a66dd70b41837537df39b2606,
     type: 3}
   m_PrefabInstance: {fileID: 5023744676531042686}
   m_PrefabAsset: {fileID: 0}
