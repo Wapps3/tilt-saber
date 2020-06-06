@@ -213,6 +213,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!70 &142767413 stripped
+CapsuleCollider2D:
+  m_CorrespondingSourceObject: {fileID: 1049308946, guid: 480982d60ec8c864ab1182a7d377ba8c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1472960514}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &199334644
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -765,6 +771,10 @@ PrefabInstance:
       propertyPath: jumpForce
       value: 1000
       objectReference: {fileID: 0}
+    - target: {fileID: 1049308945, guid: 480982d60ec8c864ab1182a7d377ba8c, type: 3}
+      propertyPath: colliderCustom
+      value: 
+      objectReference: {fileID: 142767413}
     - target: {fileID: 35419493912518262, guid: 480982d60ec8c864ab1182a7d377ba8c,
         type: 3}
       propertyPath: m_IsActive
@@ -959,6 +969,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 32.23869
+      objectReference: {fileID: 0}
+    - target: {fileID: 4163803617208262852, guid: 480982d60ec8c864ab1182a7d377ba8c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.8136084
       objectReference: {fileID: 0}
     - target: {fileID: 4163803617709591818, guid: 480982d60ec8c864ab1182a7d377ba8c,
         type: 3}
