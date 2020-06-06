@@ -5,11 +5,13 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed;
+    public ParticleSystem PS_BulletImpact;
 
     // Start is called before the first frame update
     void Start()
     {
         Destroy(gameObject, 5f);
+        
     }
 
     // Update is called once per frame
@@ -26,6 +28,8 @@ public class Bullet : MonoBehaviour
             collision.gameObject.GetComponent<Controller2D>().Hit();
         }
 
+        Instantiate(PS_BulletImpact, transform.position, Quaternion.identity).Play();
+   
         Destroy(gameObject);
     }
 }
