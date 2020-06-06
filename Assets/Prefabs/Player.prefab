@@ -230,15 +230,15 @@ MonoBehaviour:
   factorChangeDirection: 0
   jumpForce: 500
   maxWallJump: 10
-  timeBetweenFire: 2
+  timeBetweenFire: 0.2
   timeBetweenAttack: 0.4
   fastFallForce: 100
   animator: {fileID: 4163803616976079262}
   bulletPrefab: {fileID: 5616319116875499840, guid: 34aaf19fc96654a4baeeca9522746a00,
     type: 3}
-  bulletForce: 50
+  bulletForce: 200
   gun: {fileID: 4163803616702628106}
-  recoilForce: 1000
+  recoilForce: 1600
 --- !u!70 &1049308946
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
