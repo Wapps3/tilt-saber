@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Sword : MonoBehaviour
 {
-    public float speed;
-    public ParticleSystem PS_BulletImpact;
-
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 5f);
         
     }
 
@@ -22,13 +18,16 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("Coucou");
         if (collision.gameObject.GetComponent<Controller2D>())
         {
             collision.gameObject.GetComponent<Controller2D>().Hit();
         }
 
-        Instantiate(PS_BulletImpact, transform.position, Quaternion.identity).Play();
-   
-        Destroy(gameObject);
+        if( collision.gameObject.GetComponent<Bullet>())
+        {
+            //collision.gameObject.GetComponent<Rigidbody2D>().
+            Debug.Log("je renvoi la balle");
+        }
     }
 }
