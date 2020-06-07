@@ -218,7 +218,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelRef: {fileID: 0}
-  playerID: 0
   colliderCustom: {fileID: 1049308946}
   rigidBody: {fileID: 1049308947}
   collisionMask:
@@ -238,9 +237,9 @@ MonoBehaviour:
   animator: {fileID: 4163803616976079262}
   bulletPrefab: {fileID: 5616319116875499840, guid: 34aaf19fc96654a4baeeca9522746a00,
     type: 3}
-  bulletForce: 1
+  bulletForce: 200
   gun: {fileID: 4163803616702628106}
-  recoilForce: 0
+  recoilForce: 1600
 --- !u!70 &1049308946
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -336,11 +335,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1886715525257469428}
     m_Modifications:
-    - target: {fileID: 1026118446194266522, guid: 020e1e3a66dd70b41837537df39b2606,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8970924711080685793, guid: 020e1e3a66dd70b41837537df39b2606,
         type: 3}
       propertyPath: m_Name
