@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Sword : MonoBehaviour
 {
+    public int owner;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,10 +20,9 @@ public class Sword : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log("Coucou");
         if (collision.gameObject.GetComponent<Controller2D>())
         {
-            collision.gameObject.GetComponent<Controller2D>().Hit();
+           collision.gameObject.GetComponent<Controller2D>().Hit(owner);
         }
 
         if( collision.gameObject.GetComponent<Bullet>())
