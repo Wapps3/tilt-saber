@@ -8,6 +8,8 @@ public class Controller2D : MonoBehaviour
 {
     public LevelManager levelRef;
 
+    public int playerID;
+
     public CapsuleCollider2D colliderCustom;
 
     public Rigidbody2D rigidBody;
@@ -48,13 +50,14 @@ public class Controller2D : MonoBehaviour
     public GameObject gun;
     public float recoilForce;
 
-    private bool die = false;
 
     void OnFire(InputValue value)
     {
         if (timeBeforeFire <= 0)
         {
             GameObject bullet = Instantiate(bulletPrefab, gun.transform.position + new Vector3(gameObject.transform.localScale.x,0,0) , new Quaternion() );
+            bullet.GetComponent<Bullet>().owner = playerID;
+            Debug.Log(bullet.GetComponent<Bullet>().owner);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             rb.AddForce(new Vector2(gameObject.transform.localScale.x * bulletForce, 0), ForceMode2D.Impulse);
 
@@ -182,9 +185,6 @@ public class Controller2D : MonoBehaviour
 
     void OnJump(InputValue value)
     {
-        if (die)
-            return;
-
         if (Grounded())
         {
             leftWalljump = maxWallJump;
@@ -211,11 +211,10 @@ public class Controller2D : MonoBehaviour
         rigidBody.AddForce(gameObject.transform.up * jumpForce, ForceMode2D.Force);
     }
 
-    public void Hit()
+    public void Hit(int ID)
     {
-        Debug.Log("arg je meurs");
-        die = true;
-        
+        levelRef.IncrementScore(ID);
+        gameObject.GetComponent<PlayerInput>().enabled = false;
         StartCoroutine(DieCoroutine());
     }
 
@@ -226,7 +225,7 @@ public class Controller2D : MonoBehaviour
         yield return new WaitForSeconds(1);
         
         rigidBody.position = levelRef.RespawnPos(gameObject);
-        die = false;
+        gameObject.GetComponent<PlayerInput>().enabled = true;
     }
 
     void Start()
@@ -235,14 +234,11 @@ public class Controller2D : MonoBehaviour
         timeBeforeFire = 0;
         timeBeforeAttack = 0;
         fastFall = false;
-        //animator.transform.localScale = new Vector3(1, 1, 1);
+        GetComponentInChildren<Sword>().owner = playerID;
     }
 
     void Update()
     {
-        if (die)
-            return;
-
         if (timeBeforeFire > 0)
             timeBeforeFire -= Time.deltaTime;
 
