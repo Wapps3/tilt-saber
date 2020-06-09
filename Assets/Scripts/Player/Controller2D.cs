@@ -330,17 +330,12 @@ public class Controller2D : MonoBehaviour
         bool walledLeft = WalledLeft();
         bool grounded = Grounded();
 
-        Debug.Log("wl" + walledLeft);
-        Debug.Log("wr" + walledRight);
-        Debug.Log("gr" + grounded);
-
         if ( walledRight &  !grounded & moveToRight )
         {
             animator.SetBool("Walled", true);
         }
         else if( walledLeft  & !grounded & moveToLeft )
         {
-            Debug.Log("Alo?");
             animator.SetBool("Walled", true);
         }
         else
