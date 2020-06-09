@@ -216,6 +216,10 @@ public class Controller2D : MonoBehaviour
     {
         levelRef.IncrementScore(ID);
         gameObject.GetComponent<PlayerInput>().enabled = false;
+        colliderCustom.enabled = false;
+        moveToLeft = false;
+        moveToRight = false;
+
         StartCoroutine(DieCoroutine());
     }
 
@@ -227,6 +231,7 @@ public class Controller2D : MonoBehaviour
         
         rigidBody.position = levelRef.RespawnPos(gameObject);
         gameObject.GetComponent<PlayerInput>().enabled = true;
+        colliderCustom.enabled = true;
     }
 
     void Start()
