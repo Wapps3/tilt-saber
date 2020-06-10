@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 272500010427306915}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -173,6 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 200
   PS_BulletImpact: {fileID: 2490713010151516466}
+  owner: 0
 --- !u!61 &4863573561278965758
 BoxCollider2D:
   m_ObjectHideFlags: 0

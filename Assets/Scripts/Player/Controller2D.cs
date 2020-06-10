@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -57,7 +57,6 @@ public class Controller2D : MonoBehaviour
         {
             GameObject bullet = Instantiate(bulletPrefab, gun.transform.position + new Vector3(gameObject.transform.localScale.x,0,0) , new Quaternion() );
             bullet.GetComponent<Bullet>().owner = playerID;
-            Debug.Log(bullet.GetComponent<Bullet>().owner);
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             rb.AddForce(new Vector2(gameObject.transform.localScale.x * bulletForce, 0), ForceMode2D.Impulse);
 
@@ -104,6 +103,8 @@ public class Controller2D : MonoBehaviour
         RaycastHit2D hit;
 
         Vector2 size = colliderCustom.size;
+       // size.x = size.x * 0.5f
+       // size.y = size.y * 0.5f;
         Vector2 center = colliderCustom.offset;
 
         for (int i = 0; i < 3; i++)
@@ -215,6 +216,10 @@ public class Controller2D : MonoBehaviour
     {
         levelRef.IncrementScore(ID);
         gameObject.GetComponent<PlayerInput>().enabled = false;
+        colliderCustom.enabled = false;
+        moveToLeft = false;
+        moveToRight = false;
+
         StartCoroutine(DieCoroutine());
     }
 
@@ -226,6 +231,7 @@ public class Controller2D : MonoBehaviour
         
         rigidBody.position = levelRef.RespawnPos(gameObject);
         gameObject.GetComponent<PlayerInput>().enabled = true;
+        colliderCustom.enabled = true;
     }
 
     void Start()
