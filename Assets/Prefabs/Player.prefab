@@ -241,6 +241,8 @@ MonoBehaviour:
   bulletForce: 200
   gun: {fileID: 4163803616702628106}
   recoilForce: 1600
+  PS_BulletShoot: {fileID: 6626870716638123731, guid: 12453c78712d4554c9683a62c78e5500,
+    type: 3}
 --- !u!70 &1049308946
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

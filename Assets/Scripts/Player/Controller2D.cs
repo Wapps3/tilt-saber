@@ -50,12 +50,16 @@ public class Controller2D : MonoBehaviour
     public GameObject gun;
     public float recoilForce;
 
+    public ParticleSystem PS_BulletShoot;
+
 
     void OnFire(InputValue value)
     {
         if (timeBeforeFire <= 0)
         {
             GameObject bullet = Instantiate(bulletPrefab, gun.transform.position + new Vector3(gameObject.transform.localScale.x,0,0) , new Quaternion() );
+            Instantiate(PS_BulletShoot, gun.transform.position, Quaternion.identity).Play();
+
             bullet.GetComponent<Bullet>().owner = playerID;
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
             rb.AddForce(new Vector2(gameObject.transform.localScale.x * bulletForce, 0), ForceMode2D.Impulse);

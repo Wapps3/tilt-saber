@@ -515,7 +515,7 @@ GameObject:
   - component: {fileID: 598825254}
   - component: {fileID: 598825253}
   m_Layer: 0
-  m_Name: Grid
+  m_Name: Map
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -904,6 +904,10 @@ PrefabInstance:
       propertyPath: levelRef
       value: 
       objectReference: {fileID: 1521904667}
+    - target: {fileID: 1049308945, guid: 480982d60ec8c864ab1182a7d377ba8c, type: 3}
+      propertyPath: playerID
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 35419493912518262, guid: 480982d60ec8c864ab1182a7d377ba8c,
         type: 3}
       propertyPath: m_IsActive
@@ -1785,6 +1789,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6913189491932969215, guid: a461d15f350cc144aade1db3d80519d4,
+        type: 3}
+      propertyPath: playerNumber
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6913189492290884497, guid: a461d15f350cc144aade1db3d80519d4,
         type: 3}
