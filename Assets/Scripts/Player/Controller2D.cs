@@ -59,7 +59,9 @@ public class Controller2D : MonoBehaviour
         if (timeBeforeFire <= 0)
         {
             GameObject bullet = Instantiate(bulletPrefab, gun.transform.position + new Vector3(gameObject.transform.localScale.x,0,0) , new Quaternion() );
-            Instantiate(PS_BulletShoot, gun.transform.position, Quaternion.identity).Play();
+            ParticleSystem PS_Shoot = Instantiate(PS_BulletShoot, gun.transform.position + new Vector3(gameObject.transform.localScale.x, 0, 0), Quaternion.identity);
+            PS_Shoot.transform.SetParent(this.transform);
+            PS_Shoot.Play();
 
             bullet.GetComponent<Bullet>().owner = playerID;
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
