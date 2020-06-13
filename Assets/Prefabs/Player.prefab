@@ -238,11 +238,12 @@ MonoBehaviour:
   animator: {fileID: 4163803616976079262}
   bulletPrefab: {fileID: 5616319116875499840, guid: 34aaf19fc96654a4baeeca9522746a00,
     type: 3}
-  bulletForce: 200
+  bulletForce: 50
   gun: {fileID: 4163803616702628106}
   recoilForce: 1600
   PS_BulletShoot: {fileID: 6626870716638123731, guid: 12453c78712d4554c9683a62c78e5500,
     type: 3}
+  PS_GroundSmoke: {fileID: 304729280880420826}
 --- !u!70 &1049308946
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -495,6 +496,12 @@ PrefabInstance:
 --- !u!4 &304729280880420827 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8112813897093318295, guid: b51dc30cd1df01d4393621c0f619fe6a,
+    type: 3}
+  m_PrefabInstance: {fileID: 8407126400482419020}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &304729280880420826 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 8112813897093318294, guid: b51dc30cd1df01d4393621c0f619fe6a,
     type: 3}
   m_PrefabInstance: {fileID: 8407126400482419020}
   m_PrefabAsset: {fileID: 0}

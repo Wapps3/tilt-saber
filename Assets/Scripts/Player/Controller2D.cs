@@ -51,6 +51,7 @@ public class Controller2D : MonoBehaviour
     public float recoilForce;
 
     public ParticleSystem PS_BulletShoot;
+    public ParticleSystem PS_GroundSmoke;
 
 
     void OnFire(InputValue value)
@@ -350,6 +351,13 @@ public class Controller2D : MonoBehaviour
         if(grounded)
         {
             fastFall = false;
+            if (!PS_GroundSmoke.isPlaying)
+            {
+                PS_GroundSmoke.Play();
+            }
+        } else
+        {
+            PS_GroundSmoke.Stop();
         }
         
         if(fastFall)
