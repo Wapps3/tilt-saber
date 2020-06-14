@@ -52,6 +52,7 @@ public class Controller2D : MonoBehaviour
 
     public ParticleSystem PS_BulletShoot;
     public ParticleSystem PS_GroundSmoke;
+    public Camera cam;
 
 
     void OnFire(InputValue value)
@@ -73,6 +74,7 @@ public class Controller2D : MonoBehaviour
 
             animator.SetTrigger("Fire");
             timeBeforeFire = timeBetweenFire;
+            StartCoroutine(cam.GetComponent<CameraShake>().Shake(.15f, .4f));
         }
     }
 
